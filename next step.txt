@@ -1,0 +1,64 @@
+Next Step :
+making real api instead of mocking one ...
+we start with making database structure 
+
+database improvment and creation:
+improving the Job.json data and making tables/entity and their relationships..
+database structure:
+users
+ ├── id (PK)
+ ├── name
+ ├── email
+ ├── password_hash
+ ├── role_id (FK → roles.id)
+ └── created_at
+
+roles
+ ├── id (PK)
+ └── name  // e.g., admin, recruiter, seeker
+
+companies
+ ├── id (PK)
+ ├── user_id (FK → users.id)  // owner/recruiter
+ ├── name
+ ├── description
+ ├── contact_email
+ ├── contact_phone
+ └── created_at
+
+jobs
+ ├── id (PK)
+ ├── company_id (FK → companies.id)
+ ├── title
+ ├── type
+ ├── description
+ ├── location
+ ├── salary
+ └── created_at
+
+categories
+ ├── id (PK)
+ └── name
+
+job_category
+ ├── job_id (FK → jobs.id)
+ ├── category_id (FK → categories.id)
+(PK = composite of job_id + category_id)
+
+applications
+ ├── id (PK)
+ ├── user_id (FK → users.id)
+ ├── job_id (FK → jobs.id)
+ ├── status  // e.g., pending, accepted, rejected
+ └── applied_at
+
+company_reviews
+ ├── id (PK)
+ ├── company_id (FK → companies.id)
+ ├── user_id (FK → users.id)
+ ├── rating (1–5)
+ ├── review_text
+ └── created_at
+
+relationships:
+
