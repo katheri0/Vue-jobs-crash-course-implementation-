@@ -62,3 +62,38 @@ company_reviews
 
 relationships:
 
+users
+  ├── hasMany(companies)                 // One recruiter can own many companies
+  ├── hasMany(applications)               // One user can apply to many jobs
+  ├── hasMany(company_reviews)            // One user can review many companies
+  └── belongsTo(roles)                    // Each user has one role
+
+roles
+  └── hasMany(users)                      // One role applies to many users
+
+companies
+  ├── belongsTo(users)                    // Company owned/managed by one user
+  ├── hasMany(jobs)                       // One company can post many jobs
+  └── hasMany(company_reviews)             // One company can have many reviews
+
+jobs
+  ├── belongsTo(companies)                // Job belongs to one company
+  ├── hasMany(applications)               // One job can have many applications
+  ├── belongsToMany(categories)           // Many-to-many via job_category
+  └── hasMany(job_category)               // Pivot table link
+
+categories
+  └── belongsToMany(jobs)                 // Many-to-many via job_category
+
+job_category
+  ├── belongsTo(jobs)                     // FK to job
+  └── belongsTo(categories)               // FK to category
+
+applications
+  ├── belongsTo(users)                    // Applicant user
+  └── belongsTo(jobs)                     // Job applied to
+
+company_reviews
+  ├── belongsTo(users)                    // Reviewer
+  └── belongsTo(companies)                // Company being reviewed
+
