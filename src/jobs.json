@@ -83,6 +83,20 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
+    },
+    {
+      "id": "21bd",
+      "title": "Junior Vue Developer",
+      "type": "Part-Time",
+      "location": "Boston, MA",
+      "description": "We are seeking a talented Front-End Developer to join us, The ideal candidate will have good skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks like (and specifically) Vue or angular .",
+      "salary": "$60K - $70K",
+      "company": {
+        "name": "Technologies",
+        "description": "Technology Solutions is a leading technology company specializing in web development and digital solutions. We pride ourselves on delivering high-quality products and services to our clients while fostering a collaborative and innovative work environment.",
+        "contactEmail": "whatever@whatever.com",
+        "contactPhone": "555-555-5556"
+      }
     }
   ]
 }

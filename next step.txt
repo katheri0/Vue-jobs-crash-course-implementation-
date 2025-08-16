@@ -97,3 +97,14 @@ company_reviews
   ├── belongsTo(users)                    // Reviewer
   └── belongsTo(companies)                // Company being reviewed
 
+
+Briefly Explain Tables :
+
+users → All registered people; stores login and identity info.
+roles → Defines whether a user is an admin, recruiter, or seeker.
+companies → Organizations recruiters create to post jobs.
+jobs → Vacancies posted under companies.
+categories → Tags/classifications for jobs.
+job_category → Links jobs to categories (many-to-many).
+applications → Records when a seeker applies to a job.
+company_reviews → Feedback and ratings from users about companies.
