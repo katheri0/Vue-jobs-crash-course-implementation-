@@ -108,3 +108,13 @@ categories → Tags/classifications for jobs.
 job_category → Links jobs to categories (many-to-many).
 applications → Records when a seeker applies to a job.
 company_reviews → Feedback and ratings from users about companies.
+
+__________________________________________________________
+
+Future Extensions (document only, not build now):
+
+user_profiles (optional, seeker-specific CV/skills later).
+saved_jobs (optional, seekers can bookmark jobs).
+recruiter_profiles (optional, recruiter verification info).
+job_invitations (optional, recruiters invite seekers).
+admin_logs (optional, track admin moderation).
