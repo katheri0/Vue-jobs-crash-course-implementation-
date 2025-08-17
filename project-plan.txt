@@ -1,0 +1,69 @@
+the Study Curve (Phases)
+
+1. Analysis & Documentation (done ✅)
+
+-finished the MVP database schema + relationships.
+
+-Documented future extensions.
+
+knowing the “minimum” product scope.
+
+👉 Output: Requirements + schema docs.
+_________
+2. Design Phase (current 📍)
+
+-Learn Figma → build wireframes (UI flow, mockups).
+
+-Map user journeys (seeker flow, recruiter flow, admin flow).
+
+-Define UI/UX standards (colors, fonts, layout).
+
+👉 Output: Clickable prototype + design system.
+_________
+
+3. Implementation Phase (next)
+
+-Learn Laravel basics: routing, controllers, migrations, Eloquent.
+
+-Learn frontend basics: Blade templates, maybe React/Vue later.
+
+-Start coding core MVP features → users, jobs, applications.
+
+👉 Output: Working MVP (CRUD with real DB).
+_________
+
+4. Testing & Integration Phase
+
+-Unit testing (Laravel phpunit).
+
+-Integration testing (DB + frontend).
+
+-Manual test flows (login → apply to job → recruiter sees application).
+
+-Fix bugs, refine logic.
+
+👉 Output: Stable app.
+_________
+
+5. Deployment Phase
+
+-Learn server basics (Linux hosting, Apache/Nginx).
+
+-Deploy with Laravel Forge, Docker, or shared hosting.
+
+-Configure DB in production.
+
+-Add monitoring + backups.
+
+👉 Output: Publicly available app.
+_________
+
+🔹 Why This Curve Works
+
+-Not overloading myself → each phase teaches skills in context.
+
+-Avoiding the trap of “building without design” or “design without requirements.”
+
+-Having have a portfolio-ready project at the end.
+
+⚡ Note to myself: While learning Figma, also sketch out the data flow (like ERD + user flows) inside the app → it will make Laravel implementation smoother because I will already know how data moves.
