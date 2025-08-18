@@ -109,6 +109,34 @@ job_category → Links jobs to categories (many-to-many).
 applications → Records when a seeker applies to a job.
 company_reviews → Feedback and ratings from users about companies.
 
+
+ 
+Functional Requirements (MVP)
+
+User Management
+Users can register/login.
+
+Roles define permissions:
+Seeker → browse jobs, apply, review companies.
+Recruiter → create/manage companies, post jobs.
+Admin → manage users, companies, and jobs.
+
+Company Management
+Recruiters can create and manage companies.
+Companies have descriptions, contact details.
+
+Job Management
+Recruiters can post jobs for their companies.
+Jobs have title, type, description, location, salary.
+Jobs can be tagged with one or more categories.
+
+Applications
+Seekers can apply to jobs.
+Applications have a status (pending, accepted, rejected).
+
+Company Reviews
+Users can leave reviews (rating + text) for companies.
+Companies can have multiple reviews.
 __________________________________________________________
 
 Future Extensions (document only, not build now):
