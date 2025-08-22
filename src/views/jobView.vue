@@ -10,9 +10,11 @@ const route = useRoute();
 const router = useRouter();
 const toast = useToast();
 const jobId = route.params.id;
+const companyId = route.params.id;
 
 const state = reactive({
     job:{},
+    company:{},
     isLoadong:true,
 });
 const deleteJob = async () => {
@@ -31,9 +33,10 @@ const deleteJob = async () => {
 onMounted(async()=>
 {
     try {
-        const res = await axios.get(`/api/jobs/${jobId}`);
-        state.job = res.data;
-
+      const companyRes = await axios.get(`/api/companies/${companyId}`);
+        state.company = companyRes.data;
+        const jobRes = await axios.get(`/api/jobs/${jobId}`);
+        state.job = jobRes.data;
     } catch (error) {
         console.error('error fetching job', error);
     }finally
@@ -85,10 +88,10 @@ onMounted(async()=>
             <div class="bg-white p-6 rounded-lg shadow-md">
               <h3 class="text-xl font-bold mb-6">Company Info</h3>
 
-              <h2 class="text-2xl">{{ state.job.company.name }}</h2>
+              <h2 class="text-2xl">{{ state.company.name }}</h2>
 
               <p class="my-2">
-                {{ state.job.company.description }}
+                {{ state.company.description }}
               </p>
 
               <hr class="my-4" />
@@ -96,11 +99,11 @@ onMounted(async()=>
               <h3 class="text-xl">Contact Email</h3>
 
               <p class="my-2 bg-green-100 p-2 font-bold">
-                {{ state.job.company.contactEmail }}              </p>
+                {{ state.company.contact_email }}              </p>
 
               <h3 class="text-xl">Contact Phone:</h3>
 
-              <p class="my-2 bg-green-100 p-2 font-bold">  {{ state.job.company.contactPhone }}  </p>
+              <p class="my-2 bg-green-100 p-2 font-bold">  {{ state.company.contact_phone }}  </p>
             </div>
 
             <!-- Manage -->

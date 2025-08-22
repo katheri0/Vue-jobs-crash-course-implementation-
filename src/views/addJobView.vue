@@ -4,50 +4,64 @@ import { reactive } from 'vue';
 import {useToast} from 'vue-toastification';
 import axios from 'axios';
 
-const form = reactive({
-  type: 'Full-Time',
+const jobForm = reactive({
+  id:'',
+  company_id :'',
   title: '',
+  type: 'Full-Time',
   description: '',
-  salary: '',
   location: '',
-  company: {
-    name: '',
-    description: '',
-    contactEmail: '',
-    contactPhone: '',
-  },
+  salary: '',
+  description: '',
+  created_at: '',
 });
 
+const CompanyForm  = {
+  
+      id: "",
+      user_id: '',
+      name: '',
+      description: '',
+      contact_email: '',
+      contact_phone: '',
+      created_at: ''
+    }
 const toast = useToast();
 
 const handleSubmit = async () => {
   const newJob = {
-    title: form.title,
-    type: form.type,
-    location: form.location,
-    description: form.description,
-    salary: form.salary,
-    company: {
-      name: form.company.name,
-      description: form.company.description,
-      contactEmail: form.company.contactEmail,
-      contactPhone: form.company.contactPhone,
-    },
+    title: jobForm.title,
+    type: jobForm.type,
+    description: jobForm.description,
+    location: jobForm.location,
+    salary: jobForm.salary,
   };
+const NewCompany  = {
+      id: jobForm.id,
+      name: CompanyForm.name,
+      description: CompanyForm.description,
+      contact_email: CompanyForm.contact_email,
+      contact_phone: CompanyForm.contact_phone,
+    }
 
   try {
-    const response = await axios.post('/api/jobs', newJob);
+    const companyResponse = await axios.post('/api/companies', NewCompany);    
+    const jobResponse = await axios.post('/api/jobs', newJob);
     toast.success('Job Added Successfully');
-    router.push(`/jobs/${response.data.id}`);
+    // router.push(`/jobs/${jobResponse.data.id}`);
+    // router.push(`/companies/${companyResponse.data.id}`);
+    router.push(`/jobs/${jobResponse.data.id}`);
+
+
   } catch (error) {
     console.error('Error fetching job', error);
-    toast.error('Job Was Not Added'); 
+    toast.error('Job Was Not Added OR  a company'); 
   }
 };
 </script>
 
 <template>
-  <section class="bg-green-50">
+  <section class="bg-blue-50">
     <div class="container m-auto max-w-2xl py-24">
       <div
         class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
@@ -60,7 +74,7 @@ const handleSubmit = async () => {
               >Job Type</label
             >
             <select
-              v-model="form.type"
+              v-model="jobForm.type"
               id="type"
               name="type"
               class="border rounded w-full py-2 px-3"
@@ -79,7 +93,7 @@ const handleSubmit = async () => {
             >
             <input
               type="text"
-              v-model="form.title"
+              v-model="jobForm.title"
               id="name"
               name="name"
               class="border rounded w-full py-2 px-3 mb-2"
@@ -93,7 +107,7 @@ const handleSubmit = async () => {
             >
             <textarea
               id="description"
-              v-model="form.description"
+              v-model="jobForm.description"
               name="description"
               class="border rounded w-full py-2 px-3"
               rows="4"
@@ -105,32 +119,21 @@ const handleSubmit = async () => {
             <label for="type" class="block text-gray-700 font-bold mb-2"
               >Salary</label
             >
-            <select
+            <input
               id="salary"
-              v-model="form.salary"
+              v-model="jobForm.salary"
               name="salary"
               class="border rounded w-full py-2 px-3"
               required
-            >
-              <option value="Under $50K">under $50K</option>
-              <option value="$50K - $60K">$50 - $60K</option>
-              <option value="$60K - $70K">$60 - $70K</option>
-              <option value="$70K - $80K">$70 - $80K</option>
-              <option value="$80K - $90K">$80 - $90K</option>
-              <option value="$90K - $100K">$90 - $100K</option>
-              <option value="$100K - $125K">$100 - $125K</option>
-              <option value="$125K - $150K">$125 - $150K</option>
-              <option value="$150K - $175K">$150 - $175K</option>
-              <option value="$175K - $200K">$175 - $200K</option>
-              <option value="Over $200K">Over $200K</option>
-            </select>
+            />
+             
           </div>
 
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2"> Location </label>
             <input
               type="text"
-              v-model="form.location"
+              v-model="jobForm.location"
               id="location"
               name="location"
               class="border rounded w-full py-2 px-3 mb-2"
@@ -147,7 +150,7 @@ const handleSubmit = async () => {
             >
             <input
               type="text"
-              v-model="form.company.name"
+              v-model="CompanyForm.name"
               id="company"
               name="company"
               class="border rounded w-full py-2 px-3"
@@ -163,7 +166,7 @@ const handleSubmit = async () => {
             >
             <textarea
               id="company_description"
-              v-model="form.company.description"
+              v-model="CompanyForm.description"
               name="company_description"
               class="border rounded w-full py-2 px-3"
               rows="4"
@@ -179,7 +182,7 @@ const handleSubmit = async () => {
             >
             <input
               type="email"
-              v-model="form.company.contactEmail"
+              v-model="CompanyForm.contact_email"
               id="contact_email"
               name="contact_email"
               class="border rounded w-full py-2 px-3"
@@ -195,7 +198,7 @@ const handleSubmit = async () => {
             >
             <input
               type="tel"
-              v-model="form.company.contactPhone"
+              v-model="CompanyForm.contact_phone"
               id="contact_phone"
               name="contact_phone"
               class="border rounded w-full py-2 px-3"
@@ -205,7 +208,7 @@ const handleSubmit = async () => {
 
           <div>
             <button
-              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+              class="bg-blue-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Add Job
