@@ -72,13 +72,13 @@
       "created_at": "2025-08-15T14:00:00Z"
     },
     {
-      "id": "2",
+      "id": "1",
       "user_id": 2,
-      "name": "HealthPlus",
-      "description": "Healthcare technology and solutions.",
-      "contact_email": "jobs@healthplus.com",
-      "contact_phone": "+987654321",
-      "created_at": "2025-08-15T15:00:00Z"
+      "name": "TechCorp",
+      "description": "A leading tech solutions company.",
+      "contact_email": "hr@techcorp.com",
+      "contact_phone": "+123456789",
+      "created_at": "2025-08-15T14:00:00Z"
     },
     {
       "id": "3",
@@ -86,7 +86,7 @@
       "name": "HealthPlus",
       "description": "Healthcare technology and solutions.",
       "contact_email": "jobs@healthplus.com",
-      "contact_phone": "+987654321",
+      "contact_phone": "+987654325",
       "created_at": "2025-08-15T15:00:00Z"
     },
     {
@@ -95,13 +95,6 @@
       "description": "dsesfdef",
       "contact_email": "eefdgff@sdfddsf.com",
       "contact_phone": "555-555-5500"
-    },
-    {
-      "id": "9634",
-      "name": "sssssssssssssssssssssssssssssssssssssss",
-      "description": "ssssssssssssssssssssssssssssssss",
-      "contact_email": "example@example.example",
-      "contact_phone": "555-555-5559"
     },
     {
       "id": "87d2",
@@ -131,13 +124,12 @@
     },
     {
       "id": "2",
-      "company_id": 1,
+      "company_id": 3,
       "title": "Frontend Developer",
-      "type": "Contract",
+      "type": "Full-Time",
       "description": "React developer for dashboard UI.",
       "location": "Berlin, Germany",
-      "salary": "55000",
-      "created_at": "2025-08-15T17:00:00Z"
+      "salary": "Under $50K"
     },
     {
       "id": "3",
@@ -148,32 +140,6 @@
       "location": "London, UK",
       "salary": "40000",
       "created_at": "2025-08-15T18:00:00Z"
-    },
-    {
-      "id": "0384",
-      "company_id": "0384",
-      "title": "work",
-      "type": "Part-Time",
-      "description": "work please ",
-      "location": "example",
-      "salary": "2000000"
-    },
-    {
-      "id": "9634",
-      "title": "fatma",
-      "type": "Part-Time",
-      "description": "awesdfgh",
-      "location": "sssssssssssssssssssssssssssssssssssssssssssssss",
-      "salary": "233333"
-    },
-    {
-      "id": "abfb",
-      "company_id": "c74c",
-      "title": "veu ddd",
-      "type": "Part-Time",
-      "description": "ddd ",
-      "location": "Boston, MA",
-      "salary": "400000"
     }
   ],
   "categories": [

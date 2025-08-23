@@ -2,76 +2,83 @@
 import router from '@/router';
 import { reactive, onMounted } from 'vue';
 import { useToast } from 'vue-toastification';
-import axios from 'axios';
-import { useRoute } from 'vue-router';
-
-
+import { useRouter, useRoute } from 'vue-router';
 const route = useRoute();
+import api from '@/services/api';
+
 const jobId = route.params.id;
-const form = reactive({
-    type: 'Full-Time',
+
+const updatejobForm = reactive({
     title: '',
+    type: 'Full-Time',
     description: '',
-    salary: '',
     location: '',
-    company: {
-        name: '',
-        description: '',
-        contactEmail: '',
-        contactPhone: '',
-    },
+    salary: ''
+});
+
+const updateCompanyForm = reactive({
+    name: '',
+    description: '',
+    contact_email: '',
+    contact_phone: ''
 });
 
 const state = reactive({
     job: {},
-    isloading: true
+    company: {},
+    isLoading: true
 });
 const toast = useToast();
 
 const handleSubmit = async () => {
-    const updatedJob = {
-        title: form.title,
-        type: form.type,
-        location: form.location,
-        description: form.description,
-        salary: form.salary,
-        company: {
-            name: form.company.name,
-            description: form.company.description,
-            contactEmail: form.company.contactEmail,
-            contactPhone: form.company.contactPhone,
-        },
-    };
 
     try {
-        const response = await axios.put(`/api/jobs/${jobId}`, updatedJob);
+        const companyId = state.job.company_id; 
+        const jobResponse = await api.patch(`/jobs/${jobId}`, {
+            title: updatejobForm.title,
+            type: updatejobForm.type,
+            description: updatejobForm.description,
+            location: updatejobForm.location,
+            salary: updatejobForm.salary
+
+        });
+        const companyResponse = await api.patch(`/companies/${companyId}`, {
+            name: updateCompanyForm.name,
+            description: updateCompanyForm.description,
+            contact_email: updateCompanyForm.contact_email,
+            contact_phone: updateCompanyForm.contact_phone,
+
+        });
+
         toast.success('Job updated Successfully');
-        router.push(`/jobs/${response.data.id}`);
+        router.push(`/jobs/${jobResponse.data.id}`);
     } catch (error) {
         console.error('Error fetching job', error);
-        toast.error('Job Was Not Added');
+        toast.error('Job was not updated');
     }
 };
 
 onMounted(async () => {
     try {
-        const res = await axios.get(`/api/jobs/${jobId}`);
-        state.job = res.data;
+        const jobRes = await api.get(`/jobs/${jobId}`);
+        const companyId = jobRes.data.company_id;
+        const companyRes = await api.get(`/companies/${companyId}`);
+        state.job = jobRes.data;
+        state.company = companyRes.data;
         // poplate inputs.
-        form.type = state.job.type;
-        form.title = state.job.title;
-        form.description = state.job.description;
-        form.salary = state.job.salary;
-        form.location = state.job.location;
-        form.company.name = state.job.company.name;
-        form.company.description = state.job.company.description;
-        form.company.contactEmail = state.job.company.contactEmail;
-        form.company.contactPhone = state.job.company.contactPhone;
-
+        updatejobForm.type = state.job.type;
+        updatejobForm.title = state.job.title;
+        updatejobForm.description = state.job.description;
+        updatejobForm.salary = state.job.salary;
+        updatejobForm.location = state.job.location;
+        updateCompanyForm.name = state.company.name;
+        updateCompanyForm.description = state.company.description;
+        updateCompanyForm.contact_email = state.company.contact_email;
+        updateCompanyForm.contact_phone = state.company.contact_phone;
     } catch (error) {
         console.error('error fetching job', error);
     } finally {
-        state.isloading = false;
+        state.isLoading = false;
     }
 });
 </script>
@@ -85,8 +92,8 @@ onMounted(async () => {
 
                     <div class="mb-4">
                         <label for="type" class="block text-gray-700 font-bold mb-2">Job Type</label>
-                        <select v-model="form.type" id="type" name="type" class="border rounded w-full py-2 px-3"
-                            required>
+                        <select v-model="updatejobForm.type" id="type" name="type"
+                            class="border rounded w-full py-2 px-3" required>
                             <option value="Full-Time">Full-Time</option>
                             <option value="Part-Time">Part-Time</option>
                             <option value="Remote">Remote</option>
@@ -96,21 +103,21 @@ onMounted(async () => {
 
                     <div class="mb-4">
                         <label class="block text-gray-700 font-bold mb-2">Job Listing Name</label>
-                        <input type="text" v-model="form.title" id="name" name="name"
+                        <input type="text" v-model="updatejobForm.title" id="name" name="name"
                             class="border rounded w-full py-2 px-3 mb-2" placeholder="eg. Beautiful Apartment In Miami"
                             required />
                     </div>
                     <div class="mb-4">
                         <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
-                        <textarea id="description" v-model="form.description" name="description"
+                        <textarea id="description" v-model="updatejobForm.description" name="description"
                             class="border rounded w-full py-2 px-3" rows="4"
                             placeholder="Add any job duties, expectations, requirements, etc"></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="type" class="block text-gray-700 font-bold mb-2">Salary</label>
-                        <select id="salary" v-model="form.salary" name="salary" class="border rounded w-full py-2 px-3"
-                            required>
+                        <select id="salary" v-model="updatejobForm.salary" name="salary"
+                            class="border rounded w-full py-2 px-3" required>
                             <option value="Under $50K">under $50K</option>
                             <option value="$50K - $60K">$50 - $60K</option>
                             <option value="$60K - $70K">$60 - $70K</option>
@@ -127,7 +134,7 @@ onMounted(async () => {
 
                     <div class="mb-4">
                         <label class="block text-gray-700 font-bold mb-2"> Location </label>
-                        <input type="text" v-model="form.location" id="location" name="location"
+                        <input type="text" v-model="updatejobForm.location" id="location" name="location"
                             class="border rounded w-full py-2 px-3 mb-2" placeholder="Company Location" required />
                     </div>
 
@@ -135,28 +142,29 @@ onMounted(async () => {
 
                     <div class="mb-4">
                         <label for="company" class="block text-gray-700 font-bold mb-2">Company Name</label>
-                        <input type="text" v-model="form.company.name" id="company" name="company"
+                        <input type="text" v-model="updateCompanyForm.name" id="company" name="company"
                             class="border rounded w-full py-2 px-3" placeholder="Company Name" />
                     </div>
 
                     <div class="mb-4">
                         <label for="company_description" class="block text-gray-700 font-bold mb-2">Company
                             Description</label>
-                        <textarea id="company_description" v-model="form.company.description" name="company_description"
-                            class="border rounded w-full py-2 px-3" rows="4"
+                        <textarea id="company_description" v-model="updateCompanyForm.description"
+                            name="company_description" class="border rounded w-full py-2 px-3" rows="4"
                             placeholder="What does your company do?"></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="contact_email" class="block text-gray-700 font-bold mb-2">Contact Email</label>
-                        <input type="email" v-model="form.company.contactEmail" id="contact_email" name="contact_email"
-                            class="border rounded w-full py-2 px-3" placeholder="Email address for applicants"
-                            required />
+                        <input type="email" v-model="updateCompanyForm.contact_email" id="contact_email"
+                            name="contact_email" class="border rounded w-full py-2 px-3"
+                            placeholder="Email address for applicants" required />
                     </div>
                     <div class="mb-4">
                         <label for="contact_phone" class="block text-gray-700 font-bold mb-2">Contact Phone</label>
-                        <input type="tel" v-model="form.company.contactPhone" id="contact_phone" name="contact_phone"
-                            class="border rounded w-full py-2 px-3" placeholder="Optional phone for applicants" />
+                        <input type="tel" v-model="updateCompanyForm.contact_phone" id="contact_phone"
+                            name="contact_phone" class="border rounded w-full py-2 px-3"
+                            placeholder="Optional phone for applicants" />
                     </div>
 
                     <div>
