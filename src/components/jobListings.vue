@@ -2,9 +2,8 @@
 import { RouterLink } from 'vue-router';
 import { ref, defineProps, onMounted, reactive } from 'vue';
 import jobListing from '@/components/jobListing.vue'
-import axios from 'axios';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-
+import api from '@/services/api';
 defineProps(
     {
         Limiter: Number,
@@ -21,7 +20,7 @@ const state = reactive({
 });
 onMounted(async () => {
     try {
-        const res = await axios.get("/api/jobs");
+        const res = await api.get("/jobs");
         state.jobs = res.data;
 
     } catch (error) {

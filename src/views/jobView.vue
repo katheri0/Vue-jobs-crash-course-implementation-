@@ -1,27 +1,28 @@
 <script setup>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
-import { reactive,onMounted } from 'vue';
-import { useRoute,RouterLink, useRouter } from 'vue-router';
+import { reactive, onMounted } from 'vue';
+import { useRoute, RouterLink, useRouter } from 'vue-router';
 import backButton from '@/components/backButton.vue';
-import axios from 'axios';
-import {useToast} from 'vue-toastification';
+import { useToast } from 'vue-toastification';
+import api from '@/services/api';
 
 const route = useRoute();
 const router = useRouter();
 const toast = useToast();
+
 const jobId = route.params.id;
-const companyId = route.params.id;
 
 const state = reactive({
-    job:{},
-    company:{},
-    isLoadong:true,
+  job: {},
+  company: {},
+  isLoading: true,
 });
+
 const deleteJob = async () => {
   try {
     const confirm = window.confirm('Are you sure you want to delete this job?');
     if (confirm) {
-      await axios.delete(`/api/jobs/${jobId}`);
+      await api.delete(`/jobs/${jobId}`);
       toast.success('Job Deleted Successfully');
       router.push('/jobs');
     }
@@ -30,21 +31,29 @@ const deleteJob = async () => {
     toast.error('Job Not Deleted');
   }
 };
-onMounted(async()=>
-{
-    try {
-      const companyRes = await axios.get(`/api/companies/${companyId}`);
-        state.company = companyRes.data;
-        const jobRes = await axios.get(`/api/jobs/${jobId}`);
-        state.job = jobRes.data;
-    } catch (error) {
-        console.error('error fetching job', error);
-    }finally
-    {
-        state.isLoadong = false;
+
+onMounted(async () => {
+  try {
+    // 1. Fetch the job first
+    const jobRes = await api.get(`/jobs/${jobId}`);
+    state.job = jobRes.data;
+
+    // 2. Extract company_id from job
+    const companyId = jobRes.data.company_id;
+
+    // 3. Fetch the company using that ID
+    if (companyId) {
+      const companyRes = await api.get(`/companies/${companyId}`);
+      state.company = companyRes.data;
     }
+  } catch (error) {
+    console.error('Error fetching job/company', error);
+  } finally {
+    state.isLoading = false;
+  }
 });
 </script>
+
 
 <template>
   <backButton/>

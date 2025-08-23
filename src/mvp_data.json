@@ -102,6 +102,20 @@
       "description": "ssssssssssssssssssssssssssssssss",
       "contact_email": "example@example.example",
       "contact_phone": "555-555-5559"
+    },
+    {
+      "id": "87d2",
+      "name": "Browning Technologies",
+      "description": "Vue company ..",
+      "contact_email": "goooodcompany@goodness.com",
+      "contact_phone": "555-555-5500"
+    },
+    {
+      "id": "c74c",
+      "name": "whatever1",
+      "description": "ergf",
+      "contact_email": "whatever@whatever.com",
+      "contact_phone": "555-555-5500"
     }
   ],
   "jobs": [
@@ -151,6 +165,15 @@
       "description": "awesdfgh",
       "location": "sssssssssssssssssssssssssssssssssssssssssssssss",
       "salary": "233333"
+    },
+    {
+      "id": "abfb",
+      "company_id": "c74c",
+      "title": "veu ddd",
+      "type": "Part-Time",
+      "description": "ddd ",
+      "location": "Boston, MA",
+      "salary": "400000"
     }
   ],
   "categories": [

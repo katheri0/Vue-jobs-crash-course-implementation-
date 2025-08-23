@@ -1,64 +1,55 @@
 <script setup>
 import router from '@/router';
 import { reactive } from 'vue';
-import {useToast} from 'vue-toastification';
-import axios from 'axios';
+import { useToast } from 'vue-toastification';
+import api from '@/services/api';
 
 const jobForm = reactive({
-  id:'',
-  company_id :'',
   title: '',
   type: 'Full-Time',
   description: '',
   location: '',
-  salary: '',
-  description: '',
-  created_at: '',
+  salary: ''
 });
 
-const CompanyForm  = {
-  
-      id: "",
-      user_id: '',
-      name: '',
-      description: '',
-      contact_email: '',
-      contact_phone: '',
-      created_at: ''
-    }
+const CompanyForm = reactive({
+  name: '',
+  description: '',
+  contact_email: '',
+  contact_phone: ''
+});
+
 const toast = useToast();
 
 const handleSubmit = async () => {
-  const newJob = {
-    title: jobForm.title,
-    type: jobForm.type,
-    description: jobForm.description,
-    location: jobForm.location,
-    salary: jobForm.salary,
-  };
-const NewCompany  = {
-      id: jobForm.id,
+  try {
+    const companyResponse = await api.post('/companies', {
       name: CompanyForm.name,
       description: CompanyForm.description,
       contact_email: CompanyForm.contact_email,
       contact_phone: CompanyForm.contact_phone,
-    }
+    });
 
-  try {
-    const companyResponse = await axios.post('/api/companies', NewCompany);    
-    const jobResponse = await axios.post('/api/jobs', newJob);
-    toast.success('Job Added Successfully');
-    // router.push(`/jobs/${jobResponse.data.id}`);
-    // router.push(`/companies/${companyResponse.data.id}`);
+    const jobResponse = await api.post('/jobs', {
+      company_id: companyResponse.data.id,  // <-- link job to company
+      title: jobForm.title,
+      type: jobForm.type,
+      description: jobForm.description,
+      location: jobForm.location,
+      salary: jobForm.salary,
+    });
+
+    toast.success('Job and Company Added Successfully');
+
+    // 3️⃣ Redirect to job details page
     router.push(`/jobs/${jobResponse.data.id}`);
-
-
   } catch (error) {
-    console.error('Error fetching job', error);
-    toast.error('Job Was Not Added OR  a company'); 
+    console.error('Error adding job or company:', error);
+    toast.error('Job or Company was not added');
   }
 };
 </script>
+
 
 <template>
   <section class="bg-blue-50">
