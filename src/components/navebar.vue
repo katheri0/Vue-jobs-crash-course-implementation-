@@ -1,13 +1,20 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router';
-// import logo from '@/assets/images/logo.png';   
+import UserInfo from '@/views/UserInfo.vue';
 import five from '@/assets/images/5.png';
 import L2J from '@/assets/images/L2J.png';
-const isActiveLink = (routePath) => {
+import { ref } from 'vue';
 
+const showUserInfoDropdown = ref(false);
+const isActiveLink = (routePath) => {
   const route = useRoute();
   return route.path === routePath;
 }
+
+
+const toggleUserInfo = () => {
+  showUserInfoDropdown.value = !showUserInfoDropdown.value;
+};
 </script>
 
 <template>
@@ -58,9 +65,13 @@ const isActiveLink = (routePath) => {
 
             </div>
           </div>
-          <RouterLink class="flex items-center ml-7" to="/">
-              <img class="h-12 w-auto" :src="five" alt="Link to Jobs" />
-            </RouterLink>
+          <button @click="toggleUserInfo"> <img class="h-12 w-auto" :src="five" alt="Link to Jobs" /></button>
+          <div v-if="showUserInfoDropdown"
+            class="absolute top-12 right-0 mt-2 w-80 bg-black text-white rounded-lg shadow-lg z-50">
+            <div class="p-4 bg-blue-900 rounded-lg">
+              <UserInfo/>
+            </div>
+          </div>
         </div>
       </div>
     </div>

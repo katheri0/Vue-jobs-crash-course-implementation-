@@ -23,6 +23,7 @@ const toggleSignup = () => {
   showSignupDropdown.value = !showSignupDropdown.value;
   showLoginDropdown.value = false;
 };
+
 </script>
 
 <template>
@@ -37,41 +38,26 @@ const toggleSignup = () => {
 
         <!-- Links -->
         <div class="ml-auto flex space-x-2 relative">
-          <RouterLink
-            to="/"
-            :class="[
-              isActiveLink('/') ? 'bg-blue-900' : 'hover:bg-gray-900 hover:text-white',
-              'text-white px-3 py-2 rounded-md'
-            ]"
-          >Home</RouterLink>
+          <RouterLink to="/" :class="[
+            isActiveLink('/') ? 'bg-blue-900' : 'hover:bg-gray-900 hover:text-white',
+            'text-white px-3 py-2 rounded-md'
+          ]">Home</RouterLink>
 
           <!-- Signup Dropdown -->
-          <button
-            @click="toggleSignup"
-            class="text-white px-3 py-2 rounded-md hover:bg-gray-900"
-          >
-            Sign Up
-          </button>
-          <div
-            v-if="showSignupDropdown"
-            class="absolute top-12 right-0 mt-2 w-80 bg-black text-white rounded-lg shadow-lg z-50"
-          >
+          <button @click="toggleSignup" class="text-white px-3 py-2 rounded-md hover:bg-gray-900">Sign Up</button>
+          <div v-if="showSignupDropdown"
+            class="absolute top-12 right-0 mt-2 w-80 bg-black text-white rounded-lg shadow-lg z-50">
             <div class="p-4 bg-blue-900 rounded-lg">
               <singinPageView />
             </div>
           </div>
 
           <!-- Login Dropdown -->
-          <button
-            @click="toggleLogin"
-            class="text-white px-3 py-2 rounded-md hover:bg-gray-900"
-          >
+          <button @click="toggleLogin" class="text-white px-3 py-2 rounded-md hover:bg-gray-900">
             Log In
           </button>
-          <div
-            v-if="showLoginDropdown"
-            class="absolute top-12 right mt-2 w-80 bg-black text-white rounded-lg shadow-lg z-50"
-          >
+          <div v-if="showLoginDropdown"
+            class="absolute top-12 right mt-2 w-80 bg-black text-white rounded-lg shadow-lg z-50">
             <div class="p-4 bg-blue-900 rounded-lg">
               <loginPageView />
             </div>
