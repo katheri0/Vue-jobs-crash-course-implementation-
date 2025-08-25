@@ -32,12 +32,12 @@ const truncatedDes = computed(()=>
 
               <div class="mb-5">
               <div > {{ truncatedDes }}</div>
-              <div><button @click="togshowFdes" class="text-green-500 haver:teaxt-green-600">
+              <div><button @click="togshowFdes" class="text-blue-500 haver:teaxt-green-600">
                 {{ SHOWFDes? " Less ":"More" }}
               </button></div>
               </div>
 
-              <h3 class="text-green-500 mb-2">{{ job.salary }} / Year</h3>
+              <h3 class="text-blue-500 mb-2">{{ job.salary }} / Year</h3>
 
               <div class="border border-gray-100 mb-5"></div>
 
