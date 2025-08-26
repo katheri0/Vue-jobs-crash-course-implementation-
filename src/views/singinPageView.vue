@@ -3,7 +3,7 @@ import { inject, reactive, ref } from 'vue';
 import api from '@/services/api';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const showLogin = inject('showLogin');
+
 const form = reactive({
   name: '',
   email: '',

@@ -8,6 +8,7 @@ import EditJobView from "@/views/EditJobView.vue";
 import loginPageView from "@/views/loginPageView.vue";
 import singinPageView from "@/views/singinPageView.vue";
 import BaseComponentpage from "@/views/BaseComponentpage.vue";
+import UserInfo from "@/views/UserInfo.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,6 +20,7 @@ const router = createRouter({
     {path: '/login', name: 'login', component: loginPageView, },
     {path: '/register', name: 'register', component: singinPageView,},
     {path: '/', name: 'home', component: BaseComponentpage, meta: { hideNavbar: true }  },
+    {path: '/users/:id',name: 'User-Information', component:UserInfo},
     {path: "/:catchAll(.*)", name: "not-found", component: notFoundView },
   ],
 });
