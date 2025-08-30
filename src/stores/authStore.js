@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { loginUser, getAuthenticatedUser, logoutUser, registerUser } from '@/stores/auth';
-
+import api from '@/services/api';
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null,
@@ -8,9 +8,21 @@ export const useAuthStore = defineStore('auth', {
         avatarIndex: 0
     }),
     getters: {
-        isLoggedIn: (state) => !!state.user
+        isLoggedIn: (state) => !!state.user,
+        // Normalize role_id to Number and check
+        isAdmin: (state) => Number(state.user?.role_id) === 1,
+        isRecruiter: (state) => Number(state.user?.role_id) === 2,
+        isSeeker: (state) => Number(state.user?.role_id) === 3,
+
+        // For your card
+        canPostJob: (state) => [1, 2].includes(Number(state.user?.role_id))
     },
     actions: {
+        async fetchRoleName(roleId) {
+            if (!roleId) return null;
+            const { data: role } = await api.get(`/roles/${roleId}`);
+            return role?.name || "unknown";
+        },
         _applyUserSnapshot(userSnapshot) {
             this.user = userSnapshot
             this.userId = userSnapshot?.id ?? null
@@ -23,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
 
             const user = users[0];
             this._applyUserSnapshot(user);
-            return user; // ✅ return user so login.vue can use it
+            return user; //  return user so login.vue can use it
         },
 
         async register(formData) {
@@ -37,6 +49,7 @@ export const useAuthStore = defineStore('auth', {
             const { data } = await getAuthenticatedUser(this.userId);
             this._applyUserSnapshot(data);
         },
+
         async fetchProfile(query = null) {
             if (query) {
                 const { data: users } = await api.get(`/users?email=${query.email}`);

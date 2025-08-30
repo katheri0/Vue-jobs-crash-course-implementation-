@@ -1,6 +1,16 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-import Card from './Card.vue';
+import { RouterLink } from 'vue-router'
+import Card from './Card.vue'
+import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
+
+// // Computed property for role check
+// const canShowEmployerCard = computed(() => {
+//   const roleId = authStore.user?.role_id
+//   return roleId && [1, 2].includes(Number(roleId))
+// })
 
 </script>
 
@@ -20,7 +30,7 @@ import Card from './Card.vue';
               Browse Jobs
             </RouterLink>
           </Card>
-          <Card bg="bg-blue-200">
+          <Card bg="bg-blue-200" v-if="authStore.canPostJob">
             <h2 class="text-2xl font-bold">For Employers</h2>
             <p class="mt-2 mb-4">
               List your job to find the perfect developer for the role

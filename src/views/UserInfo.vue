@@ -1,13 +1,16 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref  } from 'vue'
 import five from '@/assets/images/5.png';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
+const roleName = ref("")
 
 onMounted(async () => {
   try {
+
     await authStore.fetchProfile(); // no arguments needed
+    roleName.value = await authStore.fetchRoleName(authStore.user?.role_id)
   } catch (error) {
     console.error('Error fetching user', error);
   }
@@ -31,7 +34,7 @@ onMounted(async () => {
     <div class="bg-blue-500 m-2 py-6 p-4 rounded w-100 h-40">
       <p class="p-1 text-white">name: {{ authStore.user?.name }}</p>
       <p class="p-1">email: {{ authStore.user?.email }}</p>
-      <p class="p-1">role: seeker</p>
+      <p class="p-1">role: {{ roleName }}</p>
     </div>
     <button
       class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 m-2 rounded-full w-20 focus:outline-none focus:shadow-outline">

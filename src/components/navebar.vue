@@ -4,7 +4,8 @@ import UserInfo from '@/views/UserInfo.vue';
 import five from '@/assets/images/5.png';
 import L2J from '@/assets/images/L2J.png';
 import { ref } from 'vue';
-
+import { useAuthStore } from '@/stores/authStore';
+const authStore = useAuthStore();
 const showUserInfoDropdown = ref(false);
 const isActiveLink = (routePath) => {
   const route = useRoute();
@@ -56,7 +57,8 @@ const toggleUserInfo = () => {
                 'px-3',
                 'py-2',
                 'rounded-md',
-              ]">Add Job</RouterLink>
+              ]" v-if="authStore.canPostJob"
+>Add Job</RouterLink>
               <RouterLink to="/" :class="[
                 isActiveLink('/') ? 'bg-blue-900' : 'hover:bg-gray-900 hover:text-white',
                 'text-white px-3 py-2 rounded-md'

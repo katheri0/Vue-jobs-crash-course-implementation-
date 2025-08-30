@@ -51,24 +51,6 @@
       "password": "password",
       "password_confirmation": "password",
       "index_avatar": "0"
-    },
-    {
-      "id": "df04",
-      "email": "/users?email=alice@example.com&password=password"
-    },
-    {
-      "id": "7397",
-      "email": "/users?email=alice@example.com&password=password"
-    },
-    {
-      "id": "b370",
-      "email": "alice@example.com",
-      "password": "password"
-    },
-    {
-      "id": "4604",
-      "email": "alice@example.com",
-      "password": "password"
     }
   ],
   "roles": [
