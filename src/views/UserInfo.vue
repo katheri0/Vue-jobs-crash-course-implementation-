@@ -27,7 +27,7 @@ onMounted(async () => {
       <img class="h-12 w-auto m-1" :src="five" alt="Avatar"
         style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" />
       <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 rounded-full w-full focus:outline-none focus:shadow-outline">
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 rounded w-full focus:outline-none focus:shadow-outline">
         Edit
       </button>
     </div>
@@ -37,7 +37,7 @@ onMounted(async () => {
       <p class="p-1">role: {{ roleName }}</p>
     </div>
     <button
-      class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 m-2 rounded-full w-20 focus:outline-none focus:shadow-outline">
+      class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 m-2 rounded w-20 focus:outline-none focus:shadow-outline">
       Logout
     </button>
     <div class="border-t border-black-200 w-full"></div>
